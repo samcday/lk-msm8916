@@ -1,0 +1,4 @@
+build-*/
+lk-sys/target
+lib/**/target
+app/**/target
