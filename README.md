@@ -2,6 +2,16 @@
 
 This is an effort to port/rebase/rewrite the downstream Little Kernel sources from [lk2nd][lk2nd] / CAF for modern upstream LK.
 
+The kernel also appears to be oxidizing a little ... oh dear!
+
+What's working so far:
+   * UART
+   * Interrupts
+   * Timers
+   * LK Shell
+   * Basic Rust bindings
+   * Rust-based LK shell commands and LK apps
+
 ## Development
 
 You'll need:
