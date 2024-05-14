@@ -2,3 +2,5 @@
 #include "lib/heap.h"
 #include "platform.h"
 #include "lk/console_cmd.h"
+#include "app.h"
+#include "kernel/thread.h"
