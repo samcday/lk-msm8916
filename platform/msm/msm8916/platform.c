@@ -11,8 +11,10 @@
 #include <dev/interrupt/arm_gic.h>
 #include <qtimer.h>
 #include <kernel/vm.h>
+#include <lk/reg.h>
 #include <platform/irqs.h>
 #include <dev/uart.h>
+#include <arch/ops.h>
 
 struct mmu_initial_mapping mmu_initial_mappings[] = {
     {
@@ -69,4 +71,19 @@ void platform_dputc(char c) {
 
 int qtmr_irq(void) {
     return INT_QTMR_FRM_0_PHYSICAL_TIMER_EXP_8x16;
+}
+
+void platform_halt(platform_halt_action suggested_action,
+                          platform_halt_reason reason) {
+  uint32_t *base = 0;
+  vmm_alloc_physical(vmm_get_kernel_aspace(), "pmic", PAGE_SIZE, &base,
+                     8, 0x004ab000, 0, ARCH_MMU_FLAG_UNCACHED_DEVICE);
+  *base = 0;
+
+  spin(1000);
+
+  dprintf(ALWAYS, "HALT: spinning forever... (reason = %d)\n", reason);
+  arch_disable_ints();
+  for (;;)
+    arch_idle();
 }
